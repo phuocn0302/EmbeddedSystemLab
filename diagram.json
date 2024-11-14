@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "author": "BARAA MANASRA",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-mega", "id": "mega", "top": 183, "left": 73.2, "attrs": {} },
+    {
+      "type": "wokwi-membrane-keypad",
+      "id": "keypad1",
+      "top": -215.86,
+      "left": 138.7,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": 506.7,
+      "left": 198,
+      "rotate": 180,
+      "attrs": { "temperature": "29", "humidity": "23.5" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": 183.25,
+      "left": 630.3,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo3",
+      "top": -17.76,
+      "left": -22.15,
+      "rotate": 270,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-ir-receiver",
+      "id": "ir1",
+      "top": 507.55,
+      "left": 334.38,
+      "rotate": 180,
+      "attrs": {}
+    },
+    { "type": "wokwi-ir-remote", "id": "remote1", "top": -240, "left": 489.6, "attrs": {} }
+  ],
+  "connections": [
+    [ "ir1:GND", "mega:GND.2", "#8f4814", [ "v-153.6", "h-163.85" ] ],
+    [ "ir1:VCC", "mega:3.3V", "red", [ "v-104.97", "h-217.26" ] ],
+    [ "lcd1:GND", "mega:GND.5", "#8f4814", [ "h-173.5", "v150.59" ] ],
+    [ "lcd1:VCC", "mega:5V.2", "red", [ "h-106.3", "v-23.15", "h-120.7" ] ],
+    [ "servo3:GND", "mega:GND.1", "#8f4814", [ "v93.56", "h102.45" ] ],
+    [ "keypad1:R1", "mega:9", "yellow", [ "h1.3", "v69.86", "h0.7" ] ],
+    [ "keypad1:R2", "mega:8", "yellow", [ "h0.9", "v69.86", "h0.6" ] ],
+    [ "keypad1:R3", "mega:7", "yellow", [ "h1", "v69.86", "h4" ] ],
+    [ "keypad1:R4", "mega:6", "yellow", [ "v69.86", "h5.5" ] ],
+    [ "keypad1:C1", "mega:5", "yellow", [ "v69.86", "h5.5" ] ],
+    [ "keypad1:C2", "mega:4", "yellow", [ "v69.86", "h5.5" ] ],
+    [ "keypad1:C3", "mega:3", "yellow", [ "v69.86", "h-31.65" ] ],
+    [ "keypad1:C4", "mega:2", "yellow", [ "v0" ] ],
+    [ "lcd1:SDA", "mega:20", "magenta", [ "h0" ] ],
+    [ "lcd1:SCL", "mega:21", "magenta", [ "h0" ] ],
+    [ "servo3:PWM", "mega:12", "gold", [ "v0" ] ],
+    [ "servo3:V+", "mega:5V.1", "red", [ "v103.16", "h321.65", "v-27.81" ] ],
+    [ "ir1:DAT", "mega:13", "magenta", [ "v-239.37", "h-233.66" ] ],
+    [ "dht1:VCC", "mega:5V.2", "red", [ "v-249.6", "h167.3" ] ],
+    [ "dht1:SDA", "mega:16", "magenta", [ "v-278.4", "h95.3" ] ],
+    [ "dht1:GND", "mega:GND.5", "#8f4814", [ "v-172.8", "h196.1" ] ]
+  ],
+  "dependencies": {}
+}
