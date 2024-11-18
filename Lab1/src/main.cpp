@@ -9,7 +9,7 @@
 
 /* Locking DOOR */
 #define SERVO_PIN 12
-#define SERVO_LOCK_POS   20
+#define SERVO_LOCK_POS   0
 #define SERVO_UNLOCK_POS 90
 Servo lockServo;
 
@@ -18,6 +18,8 @@ Servo lockServo;
 DHT_Unified dht(DHTPIN, DHTTYPE);
 
 #define IR_RECEIVE_PIN 13
+
+#define MSV "CT060330"
 
 /* Display */
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -53,7 +55,7 @@ void unlock() {
 void showStartupMessage() {
   
   lcd.setCursor(5, 1);
-  lcd.print("CT060301");
+  lcd.print(MSV);
   
   lcd.setCursor(4, 2);
   String message = "SMART HOME";
@@ -126,9 +128,8 @@ void showWaitScreen(int delayMillis) {
 }
 
 void checkIRInput() {
-  // Kiểm tra tín hiệu IR
   if (IrReceiver.decode()) {
-    // Kiểm tra mã nút POWER (mã là 162)
+    // POWER = 162
 
     if (IrReceiver.decodedIRData.command == 162 && newCodeNeeded) {
       readyToLock = setNewCode();
@@ -140,33 +141,64 @@ void checkIRInput() {
   }
 }
 
-void safeUnlockedLogic() {
-  lcd.clear();
+float temperature = 0;
+float bufferTemperature = 0;
+float humidity = 0;
+float bufferHumidity = 0;
 
+void updateTempAndHumid()
+{
   sensors_event_t event;
   dht.temperature().getEvent(&event);
   if (!isnan(event.temperature)) {
-    lcd.setCursor(3, 0);
-    lcd.print("Temp: ");
-    lcd.print(event.temperature);
-    lcd.print(F("\xdf"));
-    lcd.print(F("C"));
+    temperature = event.temperature;
   }
+
   dht.humidity().getEvent(&event);
   if (!isnan(event.relative_humidity)) {
-    lcd.setCursor(3, 1);
-    lcd.print("Humi: ");
-    lcd.print(event.relative_humidity);
-    lcd.print(F("%"));
+    humidity = event.relative_humidity;
   }
+}
 
-  lcd.setCursor(0, 2);
+void showTemperature()
+{
+  lcd.setCursor(3, 0);
+  lcd.print("Temp: ");
+  lcd.print(temperature);
+  lcd.print(F("\xdf"));
+  lcd.print(F("C"));
+}
+
+void showHumidity()
+{
+  lcd.setCursor(3, 1);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print(F("%"));
+}
+
+void safeUnlockedLogic() {
+  lcd.clear();
+  showTemperature();
+  showHumidity();
+
+  lcd.setCursor(1, 2);
   lcd.print("# or Power to lock");
 
-
-
   while (!isLocked) {
-    checkIRInput(); // Kiểm tra tín hiệu IR
+    updateTempAndHumid();
+    if (temperature != bufferTemperature)
+    {
+      showTemperature();  
+      bufferTemperature = temperature;
+    }
+    if (humidity != bufferHumidity)
+    {
+      showHumidity();
+      bufferHumidity = humidity;
+    }
+
+    checkIRInput(); // Check IR Input
     char key = keypad.getKey();
     if (key == 'A') {
       readyToLock = setNewCode();
@@ -183,7 +215,7 @@ void safeUnlockedLogic() {
     lcd.setCursor(5, 0);
     lcd.print("Locking...");
     lock();
-    showWaitScreen(10);
+    showWaitScreen(100);
     isLocked = false;
   }
 }
