@@ -14,8 +14,8 @@
     {
       "type": "wokwi-dht22",
       "id": "dht1",
-      "top": 506.7,
-      "left": 198,
+      "top": 420.3,
+      "left": 322.8,
       "rotate": 180,
       "attrs": { "temperature": "29", "humidity": "23.5" }
     },
@@ -37,19 +37,18 @@
     {
       "type": "wokwi-ir-receiver",
       "id": "ir1",
-      "top": 507.55,
-      "left": 334.38,
+      "top": 421.15,
+      "left": 180.78,
       "rotate": 180,
       "attrs": {}
     },
     { "type": "wokwi-ir-remote", "id": "remote1", "top": -240, "left": 489.6, "attrs": {} }
   ],
   "connections": [
-    [ "ir1:GND", "mega:GND.2", "#8f4814", [ "v-153.6", "h-163.85" ] ],
-    [ "ir1:VCC", "mega:3.3V", "red", [ "v-104.97", "h-217.26" ] ],
-    [ "lcd1:GND", "mega:GND.5", "#8f4814", [ "h-173.5", "v150.59" ] ],
-    [ "lcd1:VCC", "mega:5V.2", "red", [ "h-106.3", "v-23.15", "h-120.7" ] ],
-    [ "servo3:GND", "mega:GND.1", "#8f4814", [ "v93.56", "h102.45" ] ],
+    [ "ir1:VCC", "mega:3.3V", "red", [ "v-38.4", "h17" ] ],
+    [ "lcd1:GND", "mega:GND.5", "#8f4814", [ "h-163.9", "v139" ] ],
+    [ "lcd1:VCC", "mega:5V.2", "red", [ "h-154.3", "v-32.75", "h-35.8" ] ],
+    [ "servo3:GND", "mega:GND.1", "#8f4814", [ "v26.36", "h139.35" ] ],
     [ "keypad1:R1", "mega:9", "yellow", [ "h1.3", "v69.86", "h0.7" ] ],
     [ "keypad1:R2", "mega:8", "yellow", [ "h0.9", "v69.86", "h0.6" ] ],
     [ "keypad1:R3", "mega:7", "yellow", [ "h1", "v69.86", "h4" ] ],
@@ -59,13 +58,14 @@
     [ "keypad1:C3", "mega:3", "yellow", [ "v69.86", "h-31.65" ] ],
     [ "keypad1:C4", "mega:2", "yellow", [ "v0" ] ],
     [ "lcd1:SDA", "mega:20", "magenta", [ "h0" ] ],
-    [ "lcd1:SCL", "mega:21", "magenta", [ "h0" ] ],
-    [ "servo3:PWM", "mega:12", "gold", [ "v0" ] ],
-    [ "servo3:V+", "mega:5V.1", "red", [ "v103.16", "h321.65", "v-27.81" ] ],
+    [ "lcd1:SCL", "mega:21", "magenta", [ "h-221.5", "v-51.75" ] ],
+    [ "servo3:PWM", "mega:12", "gold", [ "v45.56", "h139.35" ] ],
+    [ "servo3:V+", "mega:5V.1", "red", [ "v35.96", "h369.65", "v27.8" ] ],
     [ "ir1:DAT", "mega:13", "magenta", [ "v-239.37", "h-233.66" ] ],
-    [ "dht1:VCC", "mega:5V.2", "red", [ "v-249.6", "h167.3" ] ],
-    [ "dht1:SDA", "mega:16", "magenta", [ "v-278.4", "h95.3" ] ],
-    [ "dht1:GND", "mega:GND.5", "#8f4814", [ "v-172.8", "h196.1" ] ]
+    [ "dht1:SDA", "mega:16", "magenta", [ "v-38.4", "h-0.1", "v-201.6" ] ],
+    [ "ir1:GND", "mega:GND.2", "#8f4814", [ "v-28.8", "h-126.95" ] ],
+    [ "dht1:GND", "mega:GND.3", "#8f4814", [ "v-28.8", "h-79.05" ] ],
+    [ "dht1:VCC", "mega:5V", "red", [ "v-38.4", "h-127.1" ] ]
   ],
   "dependencies": {}
 }
